@@ -1,1 +1,3 @@
-.vscode
+.vscode/
+backend-fastapi/.venv/
+backend-fastapi/app/__pycache__/
