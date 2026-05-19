@@ -1,0 +1,5 @@
+.env
+backend-fastapi/.venv
+*.pyc
+app/__pycache__/
+redis-data

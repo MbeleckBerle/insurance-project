@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: .
+    container_name: insurance-backend
+    command: uvicorn backend.app.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --reload
+    develop:
+      watch:
+        - action: rebuild
+          path: backend-fastapi
+          target: backend
+          ignore: backend-fastapi/.venv
+
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    # environment:
+    #   - APP_HOST=${APP_HOST}
+    #   - APP_PORT=${APP_PORT}
+    #   - FASTAPI_PORT=${FASTAPI_PORT}
+    # depends_on:
+    #   - redis
+
