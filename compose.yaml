@@ -6,8 +6,8 @@ services:
     develop:
       watch:
         - action: rebuild
-          path: backend-fastapi
-          target: backend
+          path: backend-fastapi/app
+          target: backend/app
           ignore: backend-fastapi/.venv
 
     ports:
