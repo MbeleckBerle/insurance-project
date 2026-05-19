@@ -1,13 +1,13 @@
 services:
   backend:
-    build: .
+    build: ./backend-fastapi
     container_name: insurance-backend
-    command: uvicorn backend.app.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --reload
     develop:
       watch:
-        - action: rebuild
+        - action: sync
           path: backend-fastapi/app
-          target: backend/app
+          target: code/app
           ignore: backend-fastapi/.venv
 
     ports:

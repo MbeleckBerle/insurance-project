@@ -5,7 +5,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "Setting up FastAPI and docker"}
+    return {"Hello": "Setting up FastAPI backend with Docker"}
 
 @app.get("/items/{item_id}")
 def read_item(item_id: int, q: str | None = None):

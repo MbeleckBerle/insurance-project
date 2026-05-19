@@ -2,11 +2,11 @@ FROM python:3.14
 
 WORKDIR /code
 
-COPY ./backend-fastapi/requirements.txt code/requirements.txt
+COPY ./requirements.txt code/requirements.txt
 
 RUN pip install --no-cache-dir --upgrade -r code/requirements.txt
 
-COPY ./backend-fastapi /code/backend
+COPY ./app /code/app
 
 # CMD ["uvicorn", "backend.app.main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
 
