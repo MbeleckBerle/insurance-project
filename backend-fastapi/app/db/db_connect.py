@@ -9,9 +9,10 @@ load_dotenv()
 DB_PASSWORD = os.getenv("SUPABASE_PASSWORD")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
-SUPABASE_URL=f"postgresql://postgres:{DB_PASSWORD}@db.{SUPABASE_KEY}.supabase.co:5432/postgres"
+# SUPABASE_URL=f"postgresql://postgres:{DB_PASSWORD}@db.{SUPABASE_KEY}.supabase.co:5432/postgres"
+SUPABASE_URL=f"postgresql://postgres.{SUPABASE_KEY}:{DB_PASSWORD}@aws-1-us-west-2.pooler.supabase.com:6543/postgres"
 
-# print(SUPABASE_URL)
+print(SUPABASE_URL)
 
 engine = create_engine(SUPABASE_URL)
 
