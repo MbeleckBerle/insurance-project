@@ -1,6 +1,11 @@
 services:
   backend:
     build: ./backend-fastapi
+    env_file:
+      - .env
+    # environment:
+      # - SUPABASE_PASSWORD
+      # - SUPABASE_KEY
     container_name: insurance-backend
     command: uvicorn app.main:app --host 0.0.0.0 --port ${BACKEND_PORT} --reload
     develop:
@@ -12,10 +17,3 @@ services:
 
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
-    # environment:
-    #   - APP_HOST=${APP_HOST}
-    #   - APP_PORT=${APP_PORT}
-    #   - FASTAPI_PORT=${FASTAPI_PORT}
-    # depends_on:
-    #   - redis
-

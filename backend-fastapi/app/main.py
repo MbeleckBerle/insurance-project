@@ -19,6 +19,7 @@ class Hero(SQLModel, table=True):
     secret_name: str
 
 
+    
 """
 Create database on startup
 """
