@@ -1,7 +1,6 @@
-from fastapi import APIRouter, Depends
-from sqlmodel import Session
+from fastapi import APIRouter, Form
+from typing import Annotated
 
-from ..db import db_connect
 
 from ..models import users
 from ..db import db_connect
@@ -13,8 +12,8 @@ router = APIRouter(prefix='/users',
 
 
 @router.post("/")
-def create_user(user: users.User , session: db_connect.SessionDep) -> users.User:
-    session.add(user)
+def create_user(data: Annotated[users.User, Form()], session: db_connect.SessionDep) -> users.User:
+    session.add(data)
     session.commit()
-    session.refresh(user)
-    return user
+    session.refresh(data)
+    return data

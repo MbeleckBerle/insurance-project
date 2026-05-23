@@ -19,7 +19,6 @@ print(SUPABASE_URL)
 engine = create_engine(SUPABASE_URL)
 
 
-
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
