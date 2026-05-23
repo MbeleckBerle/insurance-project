@@ -12,8 +12,22 @@ router = APIRouter(prefix='/users',
 
 
 @router.post("/")
-def create_user(data: Annotated[users.User, Form()], session: db_connect.SessionDep) -> users.User:
+def create_user(data: users.User, session: db_connect.SessionDep) -> users.User:
     session.add(data)
     session.commit()
     session.refresh(data)
     return data
+
+
+
+# use for for authentication
+
+# from fastapi import APIRouter, Form
+# from typing import Annotated
+
+# @router.post("/")
+# def create_user(data: Annotated[users.User, Form()], session: db_connect.SessionDep) -> users.User:
+#     session.add(data)
+#     session.commit()
+#     session.refresh(data)
+#     return data
