@@ -11,20 +11,28 @@ router = APIRouter(prefix='/users',
                    responses={404: {"description": "Not found"}})
 
 
-# create user
-@router.post("/", response_model=UserPublic)
-async def create_user(request: UserCreate, session: SessionDep):
-    return create(request, session)
-
+"""
+FastAPI router for User endpoints.
+Defines API routes for CRUD operations on users.
+"""
 
 # get all users
-@router.get('/users', response_model=list[UserPublic])
+
+
+@router.get('/', response_model=list[UserPublic], description="Get all users")
 async def read_users(
     session: SessionDep,
     offset: int = 0,
     limit: int = Query(default=100, le=100),
 ):
+
     return get_users(session, offset, limit)
+
+
+# Create users
+@router.post("/", response_model=UserPublic, description="Create user endpoint")
+async def create_user(request: UserCreate, session: SessionDep):
+    return create(request, session)
 
 
 # Get user by ID
@@ -34,16 +42,3 @@ async def get_user_by_id():
 
 
 # Delete user
-
-
-# use for for authentication
-
-# from fastapi import APIRouter, Form
-# from typing import Annotated
-
-# @router.post("/")
-# def create_user(data: Annotated[users.User, Form()], session: db_connect.SessionDep) -> users.User:
-#     session.add(data)
-#     session.commit()
-#     session.refresh(data)
-#     return data

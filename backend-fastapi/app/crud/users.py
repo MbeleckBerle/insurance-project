@@ -1,10 +1,12 @@
-from ..schemas.users import UserCreate
 from sqlmodel import Session, select
+
+from ..schemas.users import UserCreate
 from ..models.users import User
 
 
 # Create user
 def create_user(data: UserCreate, session: Session):
+
     user = User(**data.model_dump())
     session.add(user)
     session.commit()
@@ -12,6 +14,7 @@ def create_user(data: UserCreate, session: Session):
     return user
 
 
+# Get all users
 def get_users(
     session: Session,
     offset: int = 0,
