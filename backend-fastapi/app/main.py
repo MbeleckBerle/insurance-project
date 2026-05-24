@@ -24,6 +24,7 @@ load_dotenv()
 """
 Create database on startup
 """
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
         db_connect.create_db_and_tables()
@@ -33,7 +34,7 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
 def read_root():
-    return {"Hello": "Setting up FastAPI backend with Docker"}
+    return {"Hello": "Backend is up and running"}
 
 app.include_router(users.router)
 
