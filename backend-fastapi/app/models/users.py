@@ -14,6 +14,14 @@ class UserBase(SQLModel):
 class User(UserBase, table=True):
     __tablename__ = "Users"
 
+    """
+    SQLmodel for users.
+    Fields:
+        - id: UUID, primary key
+        - name, email, role: user
+        - last_login_at, created_at, updated_at: timestamps
+    """
+
     id: int | None = Field(default=None, primary_key=True)
     role: str | None
     password_hash: str
