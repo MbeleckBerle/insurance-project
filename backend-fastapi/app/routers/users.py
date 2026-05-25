@@ -2,7 +2,7 @@ from fastapi import APIRouter, Query
 
 from ..schemas.users import UserCreate
 from ..db.db_connect import SessionDep
-from ..crud.users import create_user as create, get_users
+from ..crud.users import create_user as create, get_users, delete_user as delete
 from ..schemas.users import UserPublic
 
 
@@ -41,4 +41,7 @@ async def get_user_by_id():
     pass
 
 
-# Delete user
+# Delete user by user id
+@router.delete("/{user_id}")
+async def delete_user(user_id: int, session: SessionDep):
+    return delete(user_id, session)
