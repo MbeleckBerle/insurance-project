@@ -16,11 +16,16 @@ FastAPI router for User endpoints.
 Defines API routes for CRUD operations on users.
 """
 
+
+# Create users
+@router.post("/", response_model=UserPublic, description="Create user endpoint")
+async def create_user(request: UserCreate, session: SessionDep):
+    return create(request, session)
+
+
 # get all users
-
-
 @router.get('/', response_model=list[UserPublic], description="Get all users")
-async def read_users(
+async def get_all_users(
     session: SessionDep,
     offset: int = 0,
     limit: int = Query(default=100, le=100),
@@ -29,19 +34,19 @@ async def read_users(
     return get_users(session, offset, limit)
 
 
-# Create users
-@router.post("/", response_model=UserPublic, description="Create user endpoint")
-async def create_user(request: UserCreate, session: SessionDep):
-    return create(request, session)
+# Delete user by user id
+@router.delete("/{user_id}")
+async def delete_single_user(user_id: int, session: SessionDep):
+    return delete(user_id, session)
+
+
+# update user
+@router.patch("/update/{user_id}")
+def update_user():
+    pass
 
 
 # Get user by ID
 @router.get("/{user_id}")
 async def get_user_by_id():
     pass
-
-
-# Delete user by user id
-@router.delete("/{user_id}")
-async def delete_user(user_id: int, session: SessionDep):
-    return delete(user_id, session)
