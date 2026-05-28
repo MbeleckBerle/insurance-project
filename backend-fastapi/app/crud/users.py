@@ -1,7 +1,7 @@
 from sqlmodel import Session, select
 from fastapi import HTTPException
 
-from ..schemas.users import UserCreate
+from ..schemas.users import UserCreate, UserUpdate
 from ..models.users import User
 
 
@@ -34,7 +34,7 @@ def get_user_by_id(user_id: int, session: Session):
 
 
 # Delete a user
-def delete_user(user_id: int, session: Session):
+def user_delete(user_id: int, session: Session):
     user = session.get(User, user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -42,3 +42,18 @@ def delete_user(user_id: int, session: Session):
     session.commit()
     return {"ok": True,
             "message": f"user_id {user_id} deleted"}
+
+
+# Update user
+def user_update(user_id: int,
+                user:  UserUpdate,
+                session: Session):
+    user_db = session.get(User, user_id)
+    if not user_db:
+        raise HTTPException(status_code=404, detail="User not found")
+    user_data = user.model_dump(exclude_unset=True)
+    user_db.sqlmodel_update(user_data)
+    session.add(user_db)
+    session.commit()
+    session.refresh(user_db)
+    return (user_db)

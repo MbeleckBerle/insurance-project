@@ -18,7 +18,8 @@ class UserCreate(UserBase):
 class UserUpdate(UserBase):
     email: EmailStr | None = Field(...)
     password_hash: str
-    updated_at: datetime | None = Field(default=datetime.now())
+    role: str | None
+    updated_at: datetime = Field(default=datetime.now())
 
 
 class UserPublic(UserBase):
