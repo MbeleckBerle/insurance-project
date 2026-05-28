@@ -2,8 +2,8 @@ from fastapi import APIRouter, Query
 
 from ..schemas.users import UserCreate
 from ..db.db_connect import SessionDep
-from ..crud.users import create_user as create, get_users, delete_user as delete
-from ..schemas.users import UserPublic
+from ..crud.users import create_user as create, get_users, user_delete, user_update
+from ..schemas.users import UserPublic, UserUpdate
 
 
 router = APIRouter(prefix='/users',
@@ -35,15 +35,15 @@ async def get_all_users(
 
 
 # Delete user by user id
-@router.delete("/{user_id}")
+@router.delete("/{user_id}", description="Delete User")
 async def delete_single_user(user_id: int, session: SessionDep):
-    return delete(user_id, session)
+    return user_delete(user_id, session)
 
 
 # update user
-@router.patch("/update/{user_id}")
-def update_user():
-    pass
+@router.patch("/{user_id}", response_model=UserPublic, description="Update User")
+def update_user(user_id: int, user: UserUpdate, session: SessionDep):
+    return user_update(user_id, user, session)
 
 
 # Get user by ID
